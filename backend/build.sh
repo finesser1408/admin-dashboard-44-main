@@ -3,8 +3,8 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-# Exit if any command fails
-set -e
+# Always run from the script's directory
+cd "$(dirname "$0")"
 
 echo "==> Installing Python dependencies..."
 pip install -r requirements.txt
