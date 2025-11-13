@@ -1,9 +1,9 @@
 services:
   - type: web
     name: admin-dashboard-backend
-    env: python
+    runtime: python
     buildCommand: "./backend/build.sh"
-    startCommand: "gunicorn backend.wsgi:application --log-file -"
+    startCommand: "gunicorn backend.wsgi:application --log-file - --bind 0.0.0.0:$PORT"
     envVars:
       - key: PYTHON_VERSION
         value: "3.9.16"
@@ -11,6 +11,8 @@ services:
         value: "backend.settings"
       - key: SECRET_KEY
         generateValue: true
+      - key: PORT
+        value: 10000
       - key: WEB_CONCURRENCY
         value: 4
       - key: DISABLE_COLLECTSTATIC

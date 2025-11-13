@@ -1,11 +1,16 @@
 #!/usr/bin/env bash
 set -o errexit
+set -o pipefail
+set -o nounset
 
-# Install Python dependencies
+# Exit if any command fails
+set -e
+
+echo "==> Installing Python dependencies..."
 pip install -r requirements.txt
 
-# Collect static files
-python manage.py collectstatic --noinput
+echo "==> Collecting static files..."
+python manage.py collectstatic --noinput --clear
 
-# Apply database migrations
-python manage.py migrate
+echo "==> Applying database migrations..."
+python manage.py migrate --noinput
