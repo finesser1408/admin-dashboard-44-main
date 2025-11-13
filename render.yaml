@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: admin-dashboard-backend
+    env: python
+    buildCommand: "./backend/build.sh"
+    startCommand: "gunicorn backend.wsgi:application --log-file -"
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.9.16"
+      - key: DJANGO_SETTINGS_MODULE
+        value: "backend.settings"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4
+      - key: DISABLE_COLLECTSTATIC
+        value: "0"
+    plan: free
+
+databases:
+  - name: admin-dashboard-db
+    databaseName: admin_dashboard_db
+    user: admin_dashboard_user
+    plan: free
